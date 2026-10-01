@@ -28,6 +28,21 @@ class EntryPayload(BaseModel):
     remark: str | None = None
 
 
+class BatchArrangePayload(BaseModel):
+    """一次勾选多台设备安排季度定期检验。"""
+
+    device_ids: list[int] = Field(default_factory=list)
+    batch_key: str | None = None
+    planned_date: str | None = None
+
+
+class ConclusionPayload(BaseModel):
+    """逐台录入检验结论，结论按任务 id 与被检设备绑定。"""
+
+    conclusion: str
+    actual_date: str | None = None
+
+
 
 class RegisterEntry(BaseModel):
     """设备登记明细结构。"""

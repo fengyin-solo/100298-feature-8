@@ -10,6 +10,8 @@
     "typecheck": "vue-tsc --noEmit"
   },
   "dependencies": {
+    "@esbuild/linux-arm64": "^0.28.2",
+    "@rollup/rollup-linux-arm64-gnu": "^4.63.6",
     "pinia": "^2.1.7",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0"

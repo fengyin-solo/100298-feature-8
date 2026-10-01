@@ -27,6 +27,9 @@ class Store:
                 return row
         return None
 
+    def next_id(self, module: str) -> int:
+        return max((int(row.get("id", 0)) for row in self.rows(module)), default=0) + 1
+
     def overview(self) -> dict[str, object]:
         modules: list[dict[str, object]] = []
         for name in self.module_names():
