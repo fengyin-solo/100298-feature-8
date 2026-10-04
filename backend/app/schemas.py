@@ -19,6 +19,15 @@ class ActionResult(BaseModel):
     ok: bool
     message: str
     entry: dict[str, Any] | None = None
+    # 批量动作：可重试（如检验机构取不到）时前端保持勾选直接重试
+    retryable: bool = False
+    batch_no: str | None = None
+    entries: list[dict[str, Any]] | None = None
+    skipped: list[dict[str, Any]] | None = None
+    passed: list[dict[str, Any]] | None = None
+    rejected: list[dict[str, Any]] | None = None
+    scheduled: int | None = None
+    duplicated: bool = False
 
 
 class EntryPayload(BaseModel):
@@ -26,6 +35,22 @@ class EntryPayload(BaseModel):
 
     values: dict[str, Any] = Field(default_factory=dict)
     remark: str | None = None
+
+
+class BatchSchedulePayload(BaseModel):
+    """勾选同一批设备一次性安排检验。"""
+
+    entry_ids: list[int] = Field(default_factory=list)
+    batch_no: str | None = None
+    plan_date: str | None = None
+
+
+class BatchConclusionPayload(BaseModel):
+    """逐台录入检验结论：键为检验任务 id，值为该台设备的结论文本。"""
+
+    conclusions: dict[str, Any] = Field(default_factory=dict)
+    batch_no: str | None = None
+    actual_date: str | None = None
 
 
 
